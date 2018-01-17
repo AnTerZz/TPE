@@ -27,6 +27,7 @@ function setup() {
 
 
 function draw() {
+	translate(-400;-250);
 	image(sky,0,0,800,500);
 	imageMode(CENTER);
 	translate(400,250);
@@ -65,5 +66,17 @@ function draw() {
 	vertex(0 + vTrainée.x - 10, 150 + vTrainée.y -10);
 	vertex(0 + vTrainée.x, 150 + vTrainée.y);
 	vertex(0 + vTrainée.x - 10, 150 + vTrainée.y + 10);
+	endShape();
+	
+	//repère
+	translate(200,-50);
+	beginShape(POINTS);
+	//6000N
+	vertex(0,0);
+	vertex(0,-50);
+	vertex(0,-50);
+	vertex(-20,-30);
+	vertex(0,-50);
+	vertex(20,-30);
 	endShape();
 }
