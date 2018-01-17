@@ -49,53 +49,45 @@ function draw() {
 	var Rx = ((1055/1000) * sq(sVitesse.value() * (514/1000)) * (142/10) * Cx)/2;
 	text(nfc(Rx,0), 120, 60);
 
-	//Vecteur Portance
-	vPortance = createVector(0, Rz / 120);
 	strokeWeight(4);
 	stroke(255, 0, 0);
-	beginShape(LINES);
-	vertex(0,150);
-	vertex(0 - vPortance.x, 150 - vPortance.y);
-	vertex(0 - vPortance.x, 150 - vPortance.y);
-	vertex(0 - vPortance.x - 10 , 150 - vPortance.y + 10);
-	vertex(0 - vPortance.x, 150 - vPortance.y);
-	vertex(0 - vPortance.x + 10, 150 - vPortance.y + 10);
-	endShape();
+
+	//Vecteur Portance
+	vPortance = createVector(0, Rz / 120);
+	fleche("v", vPortance.y, 0, 150);
 
 	//Vecteur Trainée
 	vTrainée = createVector(Rx / 25, 0);
-	beginShape(LINES);
-	vertex(0, 150);
-	vertex(0 + vTrainée.x, 150 + vTrainée.y);
-	vertex(0 + vTrainée.x, 150 + vTrainée.y);
-	vertex(0 + vTrainée.x - 10, 150 + vTrainée.y -10);
-	vertex(0 + vTrainée.x, 150 + vTrainée.y);
-	vertex(0 + vTrainée.x - 10, 150 + vTrainée.y + 10);
-	endShape();
+	fleche("h", vTrainée.x, 0, 150);
 
 	translate(100,-100);
 
 	//Echelle Portance 50px = 6000N
-	beginShape(LINES);
-	vertex(0, 0);
-	vertex(0, -50);
-	vertex(0, -50);
-	vertex(-10, -40);
-	vertex(0, -50);
-	vertex(10, -40);
-	endShape();
+	fleche("v", 50, 0, 0);
 
 	//Echelle trainée 50px = 1250N
-	beginShape(LINES);
-	vertex(0, 0);
-	vertex(50, 0);
-	vertex(50, 0);
-	vertex(40, -10);
-	vertex(50, 0);
-	vertex(40, 10);
-	endShape();
+	fleche("h", 50, 0, 0);
 }
 
-function fleche(str, length) {
-
+function fleche(str, length, x, y) {
+	var a = 10;
+	if (length < 0) {
+		a = -a;
+	}
+	beginShape(LINES);
+	vertex(x, y);
+	if (str == "v") {
+		vertex(x, y - length);
+		vertex(x, y - length);
+		vertex(x - a, y - length + a);
+		vertex(x, y - length);
+		vertex(x + a, y - length + a);
+	} else if (str == "h") {
+		vertex(x + length, y);
+		vertex(x + length, y);
+		vertex(x + length - a, y - a);
+		vertex(x + length, y);
+		vertex(x + length - a, y + a);
+	}
+	endShape();
 }
