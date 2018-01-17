@@ -1,7 +1,7 @@
 /* Valeurs utilisées :
 Altitude : 5000ft
 Coefficiend d'Oswald 0,8 (généralement compris entre 0,7 et 0,9)
-aP = 0,1
+aP = 0,11
 aT = 0,11 (calculé)*/
 
 
@@ -36,7 +36,7 @@ function draw() {
 	imageMode(CORNER);
 
 	//Calcul Portance
-	var Rz = ((1055/1000) * sq(sVitesse.value() * (514/1000)) * (142/10) * (sIncidence.value()/10))/2;
+	var Rz = ((1055/1000) * sq(sVitesse.value() * (514/1000)) * (142/10) * (sIncidence.value() * (11/100)))/2;
 	text(nfc(Rz,0),120,30);
 
 	//Calcul Trainée
