@@ -72,4 +72,30 @@ function draw() {
 	vertex(0 + vTrainée.x, 150 + vTrainée.y);
 	vertex(0 + vTrainée.x - 10, 150 + vTrainée.y + 10);
 	endShape();
+
+	translate(100,-100);
+
+	//Echelle Portance 50px = 6000N
+	beginShape(LINES);
+	vertex(0, 0);
+	vertex(0, -50);
+	vertex(0, -50);
+	vertex(-10, -40);
+	vertex(0, -50);
+	vertex(10, -40);
+	endShape();
+
+	//Echelle trainée 50px = 1250N
+	beginShape(LINES);
+	vertex(0, 0);
+	vertex(50, 0);
+	vertex(50, 0);
+	vertex(40, -10);
+	vertex(50, 0);
+	vertex(40, 10);
+	endShape();
+}
+
+function fleche(str, length) {
+
 }
