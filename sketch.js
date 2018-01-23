@@ -63,10 +63,12 @@ function draw() {
 
 	//Echelle Portance 50px = 6000N
 	fleche("v", 50, 0, 0);
+	textSize(15);
+	text("6000 N", -20, -60);
 
 	//Echelle trainée 50px = 1250N
 	fleche("h", 50, 0, 0);
-
+	text("1250 N", 60, 4);
 
 }
 
@@ -75,8 +77,8 @@ function chiffres() {
 	stroke(0,0,0);
 	rotate(-PI / 180 * sIncidence.value());
 	translate(-400, -250);
-	text("Vitesse : " + sVitesse.value().toString(), 180, 45);
-	text("Incidence : " + sIncidence.value().toString(), 180, 97);
+	text("Vitesse : " + sVitesse.value().toString() + " kts", 180, 45);
+	text("Incidence : " + sIncidence.value().toString() + " °", 180, 97);
 	translate(400, 250);
 	rotate(PI / 180 * sIncidence.value());
 }
