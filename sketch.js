@@ -1,8 +1,7 @@
 /* Valeurs utilisées :
 Altitude : 5000ft
 Coefficiend d'Oswald 0,8 (généralement compris entre 0,7 et 0,9)
-aP = 0,1
-aT = 0,11 (calculé)*/
+aP = aT = 0,11 (calculé)*/
 
 
 
@@ -28,9 +27,6 @@ function setup() {
 
 function draw() {
 
-	//chiffres
-	text(sVitesse.value().toString(), 120, 30);
-	text(sIncidence.value().toString(), 120, 80);
 
 
 	image(sky,0,0,800,500);
@@ -39,6 +35,9 @@ function draw() {
 	rotate(PI / 180 * sIncidence.value());
 	image(plane,0,150,332,200);
 	imageMode(CORNER);
+
+
+	chiffres();
 
 	//Calcul Portance
 	var Rz = ((1055/1000) * sq(sVitesse.value() * (514/1000)) * (142/10) * (sIncidence.value()/10))/2;
@@ -67,6 +66,19 @@ function draw() {
 
 	//Echelle trainée 50px = 1250N
 	fleche("h", 50, 0, 0);
+
+
+}
+
+function chiffres() {
+	strokeWeight(1);
+	stroke(0,0,0);
+	rotate(-PI / 180 * sIncidence.value());
+	translate(-400, -250);
+	text("Vitesse : " + sVitesse.value().toString(), 180, 45);
+	text("Incidence : " + sIncidence.value().toString(), 180, 97);
+	translate(400, 250);
+	rotate(PI / 180 * sIncidence.value());
 }
 
 function fleche(str, length, x, y) {
