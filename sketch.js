@@ -5,7 +5,7 @@ aP = aT = 0,11 (calculé)*/
 
 
 
-var sVitesse, sIncidence, vPortance, vTrainée;
+var sVitesse, sIncidence, sTemp, vPortance, vTrainée, µATM;
 
 function setup() {
 	createCanvas(800, 500);
@@ -22,11 +22,14 @@ function setup() {
 	sVitesse.position(30, 30);
 	sIncidence = createSlider(1, 14);
 	sIncidence.position(30, 80);
+	sTemp = createSlider(-10, 40);
+	sTemp.position(30, 130);
 }
 
 
 function draw() {
 
+	µATM = ((28965338/1000000000)*101325)/((831/100)*((29315/100)+sTemp.value()));
 
 
 	image(sky,0,0,800,500);
@@ -40,12 +43,12 @@ function draw() {
 	chiffres();
 
 	//Calcul Portance
-	var Rz = ((1055/1000) * sq(sVitesse.value() * (514/1000)) * (142/10) * (sIncidence.value()/10))/2;
+	var Rz = (µATM * sq(sVitesse.value() * (514/1000)) * (142/10) * (sIncidence.value()/10))/2;
 	text(nfc(Rz,0),120,30);
 
 	//Calcul Trainée
 	var Cx = ((5/100) + ((sq(11/100)*sq(sIncidence.value()))/(PI*(535/100)*(8/10))));
-	var Rx = ((1055/1000) * sq(sVitesse.value() * (514/1000)) * (142/10) * Cx)/2;
+	var Rx = (µATM * sq(sVitesse.value() * (514/1000)) * (142/10) * Cx)/2;
 	text(nfc(Rx,0), 120, 60);
 
 	strokeWeight(4);
@@ -79,6 +82,7 @@ function chiffres() {
 	translate(-400, -250);
 	text("Vitesse : " + sVitesse.value().toString() + " kts", 180, 45);
 	text("Incidence : " + sIncidence.value().toString() + " °", 180, 97);
+	text("Température : " + sTemp.value().toString() + " °C", 180, 147);
 	translate(400, 250);
 	rotate(PI / 180 * sIncidence.value());
 }
