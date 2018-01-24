@@ -1,16 +1,15 @@
 /* Valeurs utilisées :
-Altitude : 5000ft
+Altitude : 0ft Conditions normale de Pression
 Coefficiend d'Oswald 0,8 (généralement compris entre 0,7 et 0,9)
 aP = aT = 0,11 (calculé)*/
 
 
 
-var sVitesse, sIncidence, sTemp, vPortance, vTrainée, µATM;
+var sVitesse, sIncidence, sTemp, sAltitude, vPortance, vTrainée, µATM, pAlt;
 
 function setup() {
 	createCanvas(800, 500);
 	background(0,0,0);
-
 	//images
 	sky = loadImage("images/sky.jpeg");
 	plane = loadImage("images/avion.png");
@@ -24,12 +23,14 @@ function setup() {
 	sIncidence.position(30, 80);
 	sTemp = createSlider(-10, 40);
 	sTemp.position(30, 130);
+	sAltitude = createSlider(0, 10000);
+	sAltitude.position(30, 180);
 }
 
 
 function draw() {
-
-	µATM = ((28965338/1000000000)*101325)/((831/100)*((29315/100)+sTemp.value()));
+	pAlt = 101325*Math.pow(1 - (((65/10000)/(sTemp.value()+(27315/100)))*sAltitude.value()), ((28965338/1000000000)*(9805/1000))/((831/100)*(65/1000)));
+	µATM = ((28965338/1000000000)*pAlt)/((831/100)*((27315/100)+sTemp.value()));
 
 
 	image(sky,0,0,800,500);
@@ -55,7 +56,7 @@ function draw() {
 	stroke(255, 0, 0);
 
 	//Vecteur Portance
-	vPortance = createVector(0, Rz / 120);
+	vPortance = createVector(0, Rz / 130);
 	fleche("v", vPortance.y, 0, 150);
 
 	//Vecteur Trainée
@@ -64,10 +65,10 @@ function draw() {
 
 	translate(100,-100);
 
-	//Echelle Portance 50px = 6000N
+	//Echelle Portance 50px = 6500N
 	fleche("v", 50, 0, 0);
 	textSize(15);
-	text("6000 N", -20, -60);
+	text("6500 N", -20, -60);
 
 	//Echelle trainée 50px = 1250N
 	fleche("h", 50, 0, 0);
@@ -83,6 +84,7 @@ function chiffres() {
 	text("Vitesse : " + sVitesse.value().toString() + " kts", 180, 45);
 	text("Incidence : " + sIncidence.value().toString() + " °", 180, 97);
 	text("Température : " + sTemp.value().toString() + " °C", 180, 147);
+	text("Altitude : " + sAltitude.value().toString() + " m", 180, 196);
 	translate(400, 250);
 	rotate(PI / 180 * sIncidence.value());
 }
